@@ -6,6 +6,8 @@
         "hephaiste": "./index.js"
     },
     "scripts": {
+        "clean": "rm -rf node_modules",
+        "purge": "npm cache clean --force && rm -rf node_modules package-lock.json",
         "test": "vitest --run"
     },
 
