@@ -8,6 +8,8 @@
     "scripts": {
         "clean": "rm -rf node_modules",
         "purge": "npm cache clean --force && rm -rf node_modules package-lock.json",
+        "rebuild": "npm run purge && npm install",
+        "rtest": "npm run purge && npm install && npm test",
         "test": "vitest --run"
     },
 
