@@ -12,12 +12,14 @@
         "rtest": "npm run purge && npm install && npm test",
         "test": "vitest --run"
     },
-
     "keywords": [],
     "author": "",
     "license": "ISC",
     "description": "",
     "devDependencies": {
         "vitest": "^3.2.4"
+    },
+    "dependencies": {
+        "enquirer": "^2.4.1"
     }
 }
