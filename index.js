@@ -6,7 +6,8 @@ const command = args[0];
 // Command table
 const commands = {
     greet: require('./commands/greet'),
-    menu: require('./commands/menu')
+    menu: require('./commands/menu'),
+    catcher: require('./commands/catcher')
 };
 
 if (commands[command]) {
