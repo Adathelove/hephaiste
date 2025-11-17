@@ -1,21 +1,53 @@
 #!/usr/bin/env node
 
-const args = process.argv.slice(2);
-const command = args[0];
+const { Command } = require('commander');
+const program = new Command();
 
-// Command table
-const commands = {
-    greet: require('./commands/greet'),
-    menu: require('./commands/menu'),
-    list: require('./commands/list'),
-    catcher: require('./commands/catcher')
-};
+program
+  .name('hephaiste')
+  .description('Forge tools for persona and craft management')
+  .version('0.1.0');
 
-if (commands[command]) {
-    // Run command with args
-    commands[command](args);
-} else {
-    console.log("Hephaiste: Unknown command.");
-    console.log("Try: hephaiste greet --name Ada");
-}
+program
+  .option('--persona-dir <path>', 'Path to persona directory');
+
+program
+  .command('greet')
+  .description('Greet the forge')
+  .option('--name <name>', 'Name to greet')
+  .action((options) => {
+    const name = options.name || 'friend';
+    console.log(`Forge greets you, ${name}.`);
+  });
+
+program
+  .command('menu')
+  .description('Prompt menu')
+  .action(() => {
+    require('./commands/menu')();
+  });
+
+program
+  .command('catcher')
+  .description('Capture stdin and page it')
+  .action(() => {
+    require('./commands/catcher')();
+  });
+
+program
+  .command('list <what>')
+  .description('List forge elements')
+  .action((what) => {
+    const opts = program.opts();
+
+    if (!opts.personaDir) {
+      console.error("hephaiste list: missing --persona-dir <path>");
+      process.exit(1);
+    }
+
+    console.error("hephaiste list: not implemented yet");
+    process.exit(1);
+  });
+
+program.parse(process.argv);
 
