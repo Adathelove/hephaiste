@@ -42,5 +42,13 @@ program
     require('./commands/list')(what, opts);
   });
 
+program
+  .command('inspect <persona>')
+  .description('Inspect a persona settings file and list its components')
+  .action((persona) => {
+    const opts = program.opts();
+    require('./commands/inspect')(persona, opts);
+  });
+
 program.parse(process.argv);
 
