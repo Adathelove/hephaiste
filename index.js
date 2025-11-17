@@ -7,6 +7,7 @@ const command = args[0];
 const commands = {
     greet: require('./commands/greet'),
     menu: require('./commands/menu'),
+    list: require('./commands/list'),
     catcher: require('./commands/catcher')
 };
 
