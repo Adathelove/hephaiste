@@ -39,14 +39,7 @@ program
   .description('List forge elements')
   .action((what) => {
     const opts = program.opts();
-
-    if (!opts.personaDir) {
-      console.error("hephaiste list: missing --persona-dir <path>");
-      process.exit(1);
-    }
-
-    console.error("hephaiste list: not implemented yet");
-    process.exit(1);
+    require('./commands/list')(what, opts);
   });
 
 program.parse(process.argv);
