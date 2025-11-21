@@ -17,4 +17,4 @@ COPY . .
 RUN chmod +x index.js
 
 # --- default command (lets you run hephaiste inside container) ---
-ENTRYPOINT ["node", "index.js"]
+ENTRYPOINT ["./index.js"]
