@@ -18,3 +18,6 @@ RUN chmod +x index.js
 
 # --- default command (lets you run hephaiste inside container) ---
 ENTRYPOINT ["./index.js"]
+
+# expose port for the REST API
+EXPOSE 8080
