@@ -9,6 +9,8 @@ module.exports = {
   menu: require('./menu'),
   catcher: require('./catcher'),
   list: require('./list'),
-  inspect: require('./inspect')
+  inspect: require('./inspect'),
+  persona: require('./persona'),
+  personaDebug: require('./personaDebug')
 };
 

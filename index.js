@@ -14,6 +14,23 @@ program
 program
   .option('--persona-dir <path>', 'Path to persona directory');
 
+program
+  .command('persona-debug <name>')
+  .description('Validate a persona JSON file')
+  .action((name) => {
+    const opts = program.opts();
+    commands.personaDebug(name, opts);
+  });
+
+// --- persona ---
+program
+  .command('persona <action> <name>')
+  .description('Persona operations')
+  .action((action, name) => {
+    const opts = program.opts();
+    commands.persona(action, name, opts);
+  });
+
 // --- greet ---
 program
   .command('greet')
