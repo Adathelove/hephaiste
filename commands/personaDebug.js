@@ -21,6 +21,23 @@ module.exports = function personaDebug(name, opts) {
     const persona = PersonaSchema.parse(json);
     console.log("Persona JSON is valid:");
     console.log(JSON.stringify(persona, null, 2));
+
+    // -------------------------------------------
+    // 🔥 NEW: load the baseFile JSON if specified
+    // -------------------------------------------
+    if (persona.baseFile) {
+      const basePath = path.join(dir, persona.baseFile);
+
+      if (!fs.existsSync(basePath)) {
+        console.error(`Base JSON not found: ${basePath}`);
+        process.exit(1);
+      }
+
+      const baseJson = JSON.parse(fs.readFileSync(basePath, "utf8"));
+      console.log(`Loaded base JSON: ${persona.baseFile}`);
+      console.log(JSON.stringify(baseJson, null, 2));
+    }
+
   } catch (err) {
     console.error("Persona JSON is INVALID:");
     console.error(JSON.stringify(err.errors, null, 2));
