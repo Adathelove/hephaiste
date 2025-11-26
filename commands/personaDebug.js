@@ -1,46 +1,11 @@
-const fs = require("fs");
-const path = require("path");
-const { PersonaSchema } = require("../schemas/persona.schema.js");
+const { PersonaDir, Persona } = require("../lib/persona-utils");
 
 module.exports = function personaDebug(name, opts) {
-  const dir = opts.personaDir;
-  if (!dir) {
-    console.error("Missing --persona-dir <path>");
-    process.exit(1);
-  }
+  const dir = new PersonaDir(opts.personaDir);
+  const persona = new Persona(name, dir);
 
-  const file = path.join(dir, `${name}.json`);
-  if (!fs.existsSync(file)) {
-    console.error(`Persona JSON not found: ${file}`);
-    process.exit(1);
-  }
+  persona.validate();     // Zod validation
+  persona.print();        // JSON.stringify validated persona
 
-  const json = JSON.parse(fs.readFileSync(file, "utf8"));
-
-  try {
-    const persona = PersonaSchema.parse(json);
-    console.log("Persona JSON is valid:");
-    console.log(JSON.stringify(persona, null, 2));
-
-    // -------------------------------------------
-    // 🔥 NEW: load the baseFile JSON if specified
-    // -------------------------------------------
-    if (persona.baseFile) {
-      const basePath = path.join(dir, persona.baseFile);
-
-      if (!fs.existsSync(basePath)) {
-        console.error(`Base JSON not found: ${basePath}`);
-        process.exit(1);
-      }
-
-      const baseJson = JSON.parse(fs.readFileSync(basePath, "utf8"));
-      console.log(`Loaded base JSON: ${persona.baseFile}`);
-      console.log(JSON.stringify(baseJson, null, 2));
-    }
-
-  } catch (err) {
-    console.error("Persona JSON is INVALID:");
-    console.error(JSON.stringify(err.errors, null, 2));
-    process.exit(1);
-  }
+  persona.loadBase();     // loads & prints the base JSON if present
 };
